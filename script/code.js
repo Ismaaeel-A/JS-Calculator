@@ -1,47 +1,70 @@
- let visual = document.querySelector('[visual]')
+let visual = document.querySelector('[visual]')
+let storage = [0]
+let output
 
- function display(value) {
-     visual.value += value
- }
+function display(value) {
+    visual.value += value
+}
 
- function merge() {
-     let ans = visual.value
-     ans = ans.replace(/%/g, '/100')
-     let calc1 = eval(ans)
-     visual.value = calc1
- }
+/* function merge() {
+    let ans = visual.value
+    ans = ans.replace(/%/g, '/100')
+    let calc1 = eval(ans)
+    visual.value = calc1
+} */
 
- function veryclear() {
-     visual.value = ''
- }
+function operator(value) {
+    let sign = value
+    storage.push(+visual.value)
 
- function del() {
-     let currentValue = visual.value
-     visual.value = currentValue.slice(0, -1)
- }
+    switch (sign) {
+        case '+': // +
+            storage.push('+')
+            output += visual.value + '+'
+            alert(output)
+            break
 
- function operator(value) {
-     let sign = value
-     alert(sign)
-     switch (sign) {
-         case '+':
-             visual.value += '+'
-             break
+        case '-': // -
+            storage.push('-')
+            alert(storage)
+            break
 
-         case '-':
-             visual.value += '-'
-             break
+        case '/': // /
+            storage.push('/')
+            alert(storage)
+            break
 
-         case '/':
-             visual.value += '/'
-             break
+        case '*': // *
+            storage.push('*')
+            alert(storage)
+            break
 
-         case '*':
-             visual.value += '*'
-             break
+        case 'del': // del
+            let currentValue = visual.value
+            visual.value = currentValue.slice(0, -1)
+            break
 
-         default:
-             visual.value += '..'
-             break
-     }
- }
+        case 'ce': // ce
+            visual.value = ''
+            storage = []
+            break
+
+        case '=': // =
+
+/*             for (let i = 0; i < storage.length; i++) {
+                output += storage[i]
+
+            }
+            alert(output) */
+            output = eval(output)
+            alert(output)
+            break
+
+        default:
+            alert('An error has occured. Try Again.')
+            break
+    }
+
+    visual.value = ''
+}
+
